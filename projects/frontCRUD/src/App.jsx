@@ -1,12 +1,18 @@
 import { Formulario } from './components/Formulario'
+import { Home } from './components/Home'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [user, setUser] = useState([])
 
   return (
     <div className='App'>
-      <Formulario />
+      {
+        !user.length > 0
+          ? < Formulario setUser={setUser} />
+          : <Home user={user} setUser={setUser} />
+      }
     </div>
   )
 }
