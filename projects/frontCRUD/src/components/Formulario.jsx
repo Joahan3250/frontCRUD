@@ -1,20 +1,38 @@
 import "./Formulario.css"
 import { useState } from "react"
 
-export function Formulario({ setUser }) {
+export function Formulario({ setUser, setRol } ) {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
+    const API_DB = "https://veterinarysystem-r6yx.onrender.com/api-users-v1"
+    let userExists;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (name == "" || password == "") {
             setError(true)
             return
         }
+
+        await fetch(`${API_DB}/username?username=${name}`, {
+            method: "GET"
+        })
+        .then(response => response.json())
+        .then(data => {
+            userExists = data;
+            console.log(userExists);
+        })
+        .catch(error => Error("Error: ", error))
+
+
+        console.log(userExists.username)
+        console.log(userExists.position)
+
         setError(false)
-        setUser([name])
+        setUser([userExists.username])
+        setRol([userExists.position])
     }
 
     return (
