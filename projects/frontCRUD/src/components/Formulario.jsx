@@ -23,10 +23,12 @@ export function Formulario({ setUser }) {
             <form className="formulario"
                 onSubmit={handleSubmit}
             >
+                <p>Usuario</p>
                 <input type="text"
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
+                <p>Password</p>
                 <input type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
