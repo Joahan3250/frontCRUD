@@ -1,7 +1,7 @@
 import "./Formulario.css"
 import { useState } from "react"
 
-export function Formulario({ setUser, setRol } ) {
+export function Formulario({ setUser, setRol }) {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
@@ -19,16 +19,12 @@ export function Formulario({ setUser, setRol } ) {
         await fetch(`${API_DB}/username?username=${name}`, {
             method: "GET"
         })
-        .then(response => response.json())
-        .then(data => {
-            userExists = data;
-            console.log(userExists);
-        })
-        .catch(error => Error("Error: ", error))
-
-
-        console.log(userExists.username)
-        console.log(userExists.position)
+            .then(response => response.json())
+            .then(data => {
+                userExists = data;
+                console.log(userExists);
+            })
+            .catch(error => Error("Error: ", error))
 
         setError(false)
         setUser([userExists.username])
