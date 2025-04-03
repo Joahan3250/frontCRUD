@@ -4,7 +4,7 @@ import { useState } from "react"
 export function Formulario({ setUser, setRol } ) {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState(false)
+    const [error, setError] = useState("")
     const API_DB = "https://veterinarysystem-r6yx.onrender.com/api-users-v1"
     let userExists;
 
@@ -12,25 +12,30 @@ export function Formulario({ setUser, setRol } ) {
         e.preventDefault()
 
         if (name == "" || password == "") {
-            setError(true)
+            setError("empty")
             return
         }
 
-        await fetch(`${API_DB}/username?username=${name}`, {
+        await fetch(`${API_DB}/user?user=${name}&password=${password}`, {
             method: "GET"
         })
         .then(response => response.json())
         .then(data => {
             userExists = data;
-            console.log(userExists);
+            console.log(data);
         })
         .catch(error => Error("Error: ", error))
 
+        if (userExists.username != name) {
+            setError("user")
+            return
+        }
+        else if (userExists.password != password) {
+            setError("password")
+            return
+        }
 
-        console.log(userExists.username)
-        console.log(userExists.position)
-
-        setError(false)
+        setError("")
         setUser([userExists.username])
         setRol([userExists.position])
     }
@@ -38,9 +43,7 @@ export function Formulario({ setUser, setRol } ) {
     return (
         <section>
             <h1>Login</h1>
-            <form className="formulario"
-                onSubmit={handleSubmit}
-            >
+            <form className="formulario" onSubmit={handleSubmit}>
                 <p>Usuario</p>
                 <input type="text"
                     value={name}
@@ -53,7 +56,15 @@ export function Formulario({ setUser, setRol } ) {
                 />
                 <button>Iniciar sesion</button>
             </form>
-            {error && <p>Todos los campos son obligatorios</p>}
+            {
+                error == "empty"
+                    ? <p>Todos los campos son obligatorios</p>
+                    : error == "user"
+                        ? <p>Usuario no encontrado. Ingresar de nuevo</p>
+                        : error == "password"
+                            ? <p>Contraseña incorrecta. Ingresar de nuevo</p>
+                            : error
+            }
         </section>
     )
 }
