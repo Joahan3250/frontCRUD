@@ -22,7 +22,6 @@ export function Formulario({ setUser, setRol }) {
             .then(response => response.json())
             .then(data => {
                 userExists = data;
-                // console.log(userExists.position);
             })
             .catch(error => Error("Error: ", error))
 
@@ -65,7 +64,6 @@ export function Formulario({ setUser, setRol }) {
                             ? <p>Contraseña incorrecta. Ingresar de nuevo</p>
                             : error
             }
-
         </section>
     )
 }
