@@ -1,36 +1,38 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export function Home({ user, setUser }) {
+let adminContent = null;
+export function Home({ user, setUser, rol }) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [rol, setRol] = useState("")
+    // const [rol, setRol] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-        const roles = [
-            { value: 'Admin', label: 'Admin' },
-            { value: 'Encargado', label: 'Encargado' },
-            { value: 'Recepcionista', label: 'Recepcionista' },
-            { value: 'Veterinario', label: 'Veterinario' }
-        ]
+    const roles = [
+        { value: 'Admin', label: 'Admin' },
+        { value: 'Encargado', label: 'Encargado' },
+        { value: 'Recepcionista', label: 'Recepcionista' },
+        { value: 'Veterinario', label: 'Veterinario' }
+    ]
 
-        // Boton Salir
-        const handleLogout = () => {
-            setUser([])
-        }
+    // Boton Salir
+    const handleLogout = () => {
+        setUser([])
+    }
 
-        // Boton Agregar
-        const handleSubmit = async (e) => {
-            e.preventDefault()
-        }
+    // Boton Agregar
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+    }
 
-        // Cambio Select
-        const handleChange = (e) => {
-            e.preventDefault();
+    // Cambio Select
+    const handleChange = (e) => {
+        e.preventDefault();
 
-            setRol(e.target.value);
-        }
-
+        setRol(e.target.value);
+    }
+    console.log(rol + "sad")
+    if (rol == "Admin") {
         return (
             <div>
                 <h1>Bienvenido Admin</h1>
@@ -73,4 +75,15 @@ export function Home({ user, setUser }) {
                 </form>
             </div>
         )
+
+    }
+    else {
+        return (
+            <div>
+                <h1>No tienes permisos</h1>
+            </div>
+        )
+        console.log("no eres admin " + "{" + rol + "}");
+    }
+
 }

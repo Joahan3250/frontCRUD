@@ -19,12 +19,12 @@ export function Formulario({ setUser, setRol }) {
         await fetch(`${API_DB}/user?user=${name}&password=${password}`, {
             method: "GET"
         })
-        .then(response => response.json())
-        .then(data => {
-            userExists = data;
-            console.log(data);
-        })
-        .catch(error => Error("Error: ", error))
+            .then(response => response.json())
+            .then(data => {
+                userExists = data;
+                // console.log(userExists.position);
+            })
+            .catch(error => Error("Error: ", error))
 
         if (userExists.username != name) {
             setError("user")
@@ -62,9 +62,10 @@ export function Formulario({ setUser, setRol }) {
                     : error == "user"
                         ? <p>Usuario no encontrado. Ingresar de nuevo</p>
                         : error == "password"
-                            ? <p>Contrase�a incorrecta. Ingresar de nuevo</p>
+                            ? <p>Contraseña incorrecta. Ingresar de nuevo</p>
                             : error
             }
+
         </section>
     )
 }

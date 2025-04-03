@@ -9,7 +9,7 @@ import { HomeVeterinario } from './components/HomeVeterinario'
 
 function App() {
   const [rol, setRol] = useState("")
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState("");
   // const [data, setData] = useState(null);
 
   // useEffect(() => {
@@ -17,6 +17,8 @@ function App() {
   //     .then((response) => response.json())
   //     .then((data) => setData(data));
   // }, [])
+
+  // console.log(rol);
 
   return (
 
@@ -29,17 +31,25 @@ function App() {
           <Route path="recepcionista" element={ < HomeRecepcionista user={user} setUser={setUser} /> } />
           <Route path="home-veterinario" element={ < HomeVeterinario user={user} setUser={setUser} /> } />
       </Routes> */}
+
       {
+
         !user.length > 0
           ? < Formulario setUser={setUser} setRol={setRol} />
-          : rol == "Admin"
-            ? < Home user={user} setUser={setUser} />
-            : rol == "Encargado"
-              ? < HomeEncargado user={user} setUser={setUser} />
-              : rol == "Recepcionista"
-                ? < HomeRecepcionista user={user} setUser={setUser} />
-                : < HomeVeterinario user={user} setUser={setUser} />
+          : <Home user={user} rol={rol} />
+
+
+        // ? < Home user={user} setUser={setUser} />
+
+
+        // : rol == "Encargado"
+        //   ? < HomeEncargado user={user} setUser={setUser} />
+        //   : rol == "Recepcionista"
+        //     ? < HomeRecepcionista user={user} setUser={setUser} />
+        //     : < HomeVeterinario user={user} setUser={setUser} />
       }
+
+
     </div>
   )
 }
