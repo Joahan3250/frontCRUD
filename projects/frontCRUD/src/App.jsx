@@ -8,9 +8,9 @@ import { HomeEncargado } from './components/HomeEncargado'
 import { HomeVeterinario } from './components/HomeVeterinario'
 
 function App() {
-  const [user, setUser] = useState([]);
-  const [data, setData] = useState(null);
   const [rol, setRol] = useState("")
+  const [user, setUser] = useState([]);
+  // const [data, setData] = useState(null);
 
   // useEffect(() => {
   //   fetch("https://veterinarysystem-r6yx.onrender.com/api-users-v1/usersList")
@@ -30,9 +30,9 @@ function App() {
           <Route path="home-veterinario" element={ < HomeVeterinario user={user} setUser={setUser} /> } />
       </Routes> */}
       {
-        !user.length > 0 
-          ? < Formulario setUser={setUser} setRol={setRol}/>
-          : rol == "Admin" 
+        !user.length > 0
+          ? < Formulario setUser={setUser} setRol={setRol} />
+          : rol == "Admin"
             ? < Home user={user} setUser={setUser} />
             : rol == "Encargado"
               ? < HomeEncargado user={user} setUser={setUser} />
@@ -40,7 +40,7 @@ function App() {
                 ? < HomeRecepcionista user={user} setUser={setUser} />
                 : < HomeVeterinario user={user} setUser={setUser} />
       }
-      </div>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import "./Formulario.css"
 import { useState } from "react"
 
-export function Formulario({ setUser, setRol } ) {
+export function Formulario({ setUser, setRol }) {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -62,7 +62,7 @@ export function Formulario({ setUser, setRol } ) {
                     : error == "user"
                         ? <p>Usuario no encontrado. Ingresar de nuevo</p>
                         : error == "password"
-                            ? <p>Contraseña incorrecta. Ingresar de nuevo</p>
+                            ? <p>Contrase�a incorrecta. Ingresar de nuevo</p>
                             : error
             }
         </section>
