@@ -1,5 +1,5 @@
 import "./Formulario.css"
-import { useState } from "react"
+import { useState } from 'react';
 
 export function Formulario({ setUser, setRol }) {
     const [name, setName] = useState("")
@@ -9,7 +9,7 @@ export function Formulario({ setUser, setRol }) {
     let userExists;
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (name == "" || password == "") {
             setError("empty")
@@ -19,51 +19,39 @@ export function Formulario({ setUser, setRol }) {
         await fetch(`${API_DB}/user?user=${name}&password=${password}`, {
             method: "GET"
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 userExists = data;
             })
             .catch(error => Error("Error: ", error))
 
-        if (userExists.username != name) {
-            setError("user")
-            return
-        }
-        else if (userExists.password != password) {
-            setError("password")
+        if (!userExists) {
+            setError("notFound")
             return
         }
 
-        setError("")
-        setUser([userExists.username])
-        setRol([userExists.position])
-    }
+        setError("");
+        setUser([userExists.username]);
+        setRol([userExists.position]);
+    };
 
     return (
         <section>
             <h1>Login</h1>
             <form className="formulario" onSubmit={handleSubmit}>
                 <p>Usuario</p>
-                <input type="text"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                 <p>Password</p>
-                <input type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button>Iniciar sesion</button>
             </form>
             {
                 error == "empty"
                     ? <p>Todos los campos son obligatorios</p>
-                    : error == "user"
-                        ? <p>Usuario no encontrado. Ingresar de nuevo</p>
-                        : error == "password"
-                            ? <p>Contraseña incorrecta. Ingresar de nuevo</p>
-                            : error
+                    : error == "notFound"
+                        ? <p>Credenciales incorrectas. Ingresar de nuevo</p>
+                        : error
             }
         </section>
-    )
+    );
 }

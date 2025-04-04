@@ -1,6 +1,6 @@
 import { Formulario } from './components/Formulario'
 import { Home } from './components/Home'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
@@ -17,12 +17,11 @@ function App() {
   // console.log(rol);
 
   return (
-
     <div className='App'>
       {
         !user.length > 0
           ? < Formulario setUser={setUser} setRol={setRol} />
-          : <Home user={user} rol={rol} />
+          : < Home user={user} setUser={setUser} rol={rol} />
       }
     </div>
   )

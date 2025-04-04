@@ -14,7 +14,7 @@ export function Home({ user, setUser, rol }) {
                 {/* <Route path="home-encargado" element={ < HomeEncargado user={user} setUser={setUser} /> } />
                     <Route path="recepcionista" element={ < HomeRecepcionista user={user} setUser={setUser} /> } />
                     <Route path="home-veterinario" element={ < HomeVeterinario user={user} setUser={setUser} /> } /> */}
-                <Route path="add-user" element={<FormAddUser />}></Route>
+                <Route path="add-user" element={<FormAddUser />} />
             </Routes>
             <h1>Bienvenido {rol}</h1>
             <h2>{user}</h2>
